@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sample JSON API</title>
+</head>
+<body>
+  <h1>This is a sample express API used for testing json uploads</h1>
+  <ul>
+    <li>In order to view the files, go to <a href="/static">files</a> </li>
+    <li>In order to view the files, send a POST to <strong>/file-upload</strong></li>
+  </ul>
+
+  <h2>POST Example:</h2>
+  <ul>
+    <li><strong>endpoint: </strong> localhost:3000/file-upload</li>
+    <li><strong>method: </strong> POST</li>
+
+    <li>
+      <strong>Headers: </strong>
+      { "Content-Type": "application/json" }
+    </li>
+
+    <li>
+      <strong>Body: </strong>
+      {
+        "name": "john",
+        "surname": doe
+      }
+    </li>
+  </ul>
+</body>
+</html>

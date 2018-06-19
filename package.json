@@ -1,0 +1,16 @@
+{
+  "name": "simple-rest-file-uploader",
+  "version": "0.0.1",
+  "description": "Simple express RESTful API used to upload files to the file system.",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "DEBUG=express:* nodemon app/index.js",
+    "start": "node app/index.js"
+  },
+  "author": "Phillipe Moreira",
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.16.3",
+    "serve-index": "^1.9.1"
+  }
+}

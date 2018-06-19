@@ -16,16 +16,24 @@ app.use('/static', express.static((path.join(__dirname, '/public'))),
 
 // Accepting new json documents
 app.post('/file-upload', (req, res) => {
-    console.log('POST RECEIVED');
-    var tmp_path = req.files.thumbnail.path;
-    var target_path = path.join(__dirname, '/public/') + req.files.thumbnail.name;
-    fs.rename(tmp_path, target_path, function(err) {
-        if (err) throw err;
-        fs.unlink(tmp_path, function() {
-            if (err) throw err;
-            res.send('File uploaded to: ' + target_path + ' - ' + req.files.thumbnail.size + ' bytes');
+
+    console.log('Post received');
+
+    // Use current as the file name.
+    var fileName = new Date().toISOString();
+
+    var body = '';
+    filePath = path.join(__dirname, `/public/${fileName}-file.json`);
+    req.on('data', function(data) {
+        body += data;
+    });
+
+    req.on('end', function (){
+        fs.appendFile(filePath, body, function() {
+            respond.end();
         });
-   });
+        res.sendStatus(200);
+    });
 });
 
 app.listen(3000, function () {

@@ -22,6 +22,12 @@ app.post('/file-upload', (req, res) => {
     // Use current as the file name.
     var fileName = new Date().toISOString();
 
+    if (req.headers.apikey !== "1234") {
+        res.status(500);
+        res.send("Wrong ApiKey");
+        return;
+    }
+
     var body = '';
     filePath = path.join(__dirname, `/public/${fileName}-file.json`);
     req.on('data', function(data) {
@@ -30,7 +36,7 @@ app.post('/file-upload', (req, res) => {
 
     req.on('end', function (){
         fs.appendFile(filePath, body, function() {
-            respond.end();
+            res.end();
         });
         res.sendStatus(200);
     });

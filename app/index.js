@@ -9,27 +9,33 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-// Serving the  folder
 app.use('/static', express.static((path.join(__dirname, '/public'))),
-  serveIndex(path.join(__dirname, '/public'), {'icons': true})
+  serveIndex(path.join(__dirname, '/public/'), {'icons': true})
 );
 
 // Accepting new json documents
-app.post('/file-upload', (req, res) => {
+app.post('/invoice-return', (req, res) => {
+    updloadFile(req, res, 'invoice-return')
+});
 
+app.post('/picking-return', (req, res) => {
+    updloadFile(req, res, 'invoice-return')
+});
+
+const updloadFile = (req, res, fileType) => {
     console.log('Post received');
 
     // Use current as the file name.
     var fileName = new Date().toISOString();
 
-    if (req.headers.apikey !== "1234") {
+    if (req.headers.requireapikey == "true" && req.headers.apikey !== "1234") {
         res.status(500);
         res.send("Wrong ApiKey");
         return;
     }
 
     var body = '';
-    filePath = path.join(__dirname, `/public/${fileName}-file.json`);
+    filePath = path.join(__dirname, `/public/${fileType}/${fileName}-file.json`);
     req.on('data', function(data) {
         body += data;
     });
@@ -40,7 +46,7 @@ app.post('/file-upload', (req, res) => {
         });
         res.sendStatus(200);
     });
-});
+}
 
 const port = process.env.PORT || 3000;
 app.listen(port, function () {

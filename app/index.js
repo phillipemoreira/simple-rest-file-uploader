@@ -14,12 +14,20 @@ app.use('/static', express.static((path.join(__dirname, '/public'))),
 );
 
 // Accepting new json documents
+app.post('/invoice', (req, res) => {
+    updloadFile(req, res, 'invoice')
+});
+
 app.post('/invoice-return', (req, res) => {
     updloadFile(req, res, 'invoice-return')
 });
 
+app.post('/picking', (req, res) => {
+    updloadFile(req, res, 'picking')
+});
+
 app.post('/picking-return', (req, res) => {
-    updloadFile(req, res, 'invoice-return')
+    updloadFile(req, res, 'picking-return')
 });
 
 const updloadFile = (req, res, fileType) => {
